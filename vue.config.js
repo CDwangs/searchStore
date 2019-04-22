@@ -3,10 +3,52 @@ const path = require('path')
 function resolve (dir) {
   return path.join(__dirname, './', dir)
 }
+// cdn预加载使用
+const externals = {
+  'vue': 'Vue',
+  'vue-router': 'VueRouter',
+  'vuex': 'Vuex',
+  'axios': 'axios',
+  'mint-ui': 'MINT',
+  'js-cookie': 'Cookies',
+  'AMap': 'VueAMap'
+}
+
+const cdn = {
+  // 开发环境
+  dev: {
+    css: [],
+    js: []
+  },
+  // 生产环境
+  build: {
+    css: [],
+    js: [
+      'https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.min.js',
+      'https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js',
+      'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
+      'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
+      'https://cdn.bootcss.com/mint-ui/2.2.13/index.js',
+      'https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js',
+      'https://unpkg.com/vue-amap@0.5.9/dist/index.js'
+    ]
+  }
+}
 
 module.exports = {
+  publicPath: './',
   outputDir: process.env.outputDir,
+  productionSourceMap: false,
   chainWebpack: config => {
+    config.plugin('html').tap(args => {
+      if (process.env.NODE_ENV === 'production') {
+        args[0].cdn = cdn.build
+      }
+      if (process.env.NODE_ENV === 'development') {
+        args[0].cdn = cdn.dev
+      }
+      return args
+    })
     // svg loader
     const svgRule = config.module.rule('svg') // 找到svg-loader
     svgRule.uses.clear() // 清除已有的loader, 如果不这样做会添加在此loader之后
@@ -27,23 +69,29 @@ module.exports = {
       .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
   },
   configureWebpack: config => {
-    config.resolve = {
+    const myConfig = {}
+    if (process.env.NODE_ENV === 'production') {
+      // 1. 生产环境npm包转CDN
+      myConfig.externals = externals
+    }
+    myConfig.resolve = {
       extensions: ['.js', '.vue', '.json', '.css'],
       alias: {
         'vue$': 'vue/dist/vue.esm.js',
         '@': resolve('src')
       }
     }
+    return myConfig
   },
   devServer: {
     open: false,
     host: '0.0.0.0',
-    port: 8020,
-    https: false,
+    port: 8030,
+    https: true,
     hotOnly: false,
     proxy: {
       '/api': {
-        target: ' https://www.easy-mock.com/mock/59de14f0c09842759ae61e20/example/',
+        target: ' http://192.168.2.22:8015/api/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
@@ -57,7 +105,7 @@ module.exports = {
       postcss: {
         plugins: [
           require('postcss-px2rem')({
-            remUnit: 37.5 // 此处配置成37.5是为了适用第三方UI框架，记得ps中所有测量的尺寸/2
+            remUnit: 32 // 此处配置成32是为了适用第三方UI框架，ps中所有测量的尺寸/2,本次设计宽度640px
           })
         ]
       }

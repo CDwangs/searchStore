@@ -5,12 +5,43 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <title>store-app</title>
+
+  <!-- 使用CDN加速的JS文件，配置在vue.config.js下 -->
+  <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+  <link href="<%= htmlWebpackPlugin.options.cdn.js[i] %>" rel="preload" as="script">
+  <% } %>
+  <title></title>
 </head>
 
 <body>
   <div id="app"></div>
+  <!-- 使用CDN加速的JS文件，配置在vue.config.js下 -->
+  <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+  <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+  <% } %>
+
   <!-- built files will be auto injected -->
+  <script>
+    // app内登陆回调
+    function JsGetUserInfoCallBack(upid) {
+
+      if (upid == undefined || upid == null || upid == "") {
+        thisWeiXin.dialogAlert("用户信息获取失败");
+        return;
+      } else {
+        setCookie(upid);
+        window.location.href = window.location.href.split('#')[0];
+      }
+    }
+
+    function setCookie(token) {
+      var exdate = new Date(); //获取时间
+      exdate.setTime(exdate.getTime() + 60 * 60 * 1000 * 15); //保存的时间
+      //字符串拼接cookie
+      document.cookie =
+        "token" + "=" + token + ";path=/;expires=" + exdate.toGMTString();
+    }
+  </script>
 </body>
 
 </html>

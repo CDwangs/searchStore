@@ -1,42 +1,31 @@
 import router from '@/router'
-import store from '@/store'
+// import store from '@/store'
 import {
   getToken
 } from './auth'
-import NProgress from 'nprogress' // 进度条
-import 'nprogress/nprogress.css' // 进度条样式
 
-const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
-  NProgress.start()
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+
   if (getToken()) {
-    // if (to.path === '/login') {
-    //   next({
-    //     path: '/'
-    //   })
-    //   NProgress.done()
-    // } else { // 实时拉取用户的信息
-    //   store.dispatch('GetUserInfo').then(res => {
-    //     next()
-    //   }).catch(err => {
-    //     store.dispatch('FedLogOut').then(() => {
-    //       Message.error('拉取用户信息失败，请重新登录！' + err)
-    //       next({
-    //         path: '/'
-    //       })
-    //     })
-    //   })
-    // }
+    next()
   } else {
-    if (whiteList.includes(to.path)) {
+    if (to.meta.preview) { // 商品预览页面
       next()
     } else {
-      next('/login')
-      NProgress.done()
+      // eslint-disable-next-line no-inner-declarations
+      async function getuser () {
+        return JSBridgeFunction.JsGetUserInfo()
+      }
+      getuser().then(res => {
+        next()
+      })
     }
   }
 })
 
 router.afterEach(() => {
-  NProgress.done() // 结束Progress
+  // NProgress.done() // 结束Progress
 })

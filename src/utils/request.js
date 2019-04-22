@@ -5,18 +5,19 @@ const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // api的base_url
   timeout: 10000 // 请求超时时间
 })
-console.log(store)
 // request 拦截器
 service.interceptors.request.use(
   config => {
     // loading + 1
-    store.dispatch('setLoading', true)
+
+    store.dispatch('SetLoading', true)
+
     return config
   },
   error => {
     // loading 清 0
     setTimeout(function () {
-      store.dispatch('setLoading', 0)
+      store.dispatch('SetLoading', 0)
     }, 300)
     console.log(error)
     Promise.reject(error)
@@ -28,12 +29,12 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // loading - 1
-    store.dispatch('setLoading', false)
+    store.dispatch('SetLoading', false)
     return res
   },
   error => {
     // loading - 1
-    store.dispatch('setLoading', false)
+    store.dispatch('SetLoading', false)
     return Promise.reject(error)
   }
 )

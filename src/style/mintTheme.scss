@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.mint-swipe-indicators {
+  .mint-swipe-indicator {
+    background: #fff;
+    opacity: 1;
+  }
+
+  .is-active {
+    background: #ffafc9 !important;
+  }
+}
+
+
+
+.mint-navbar .mint-tab-item.is-selected {
+  border-bottom: 0.09375rem solid #e67e22;
+  color: #e67e22;
+}
+
+.mint-spinner-snake {
+  margin: 0 auto;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.mint-msgbox {
+  font-size: 0.4rem;
+}
+
+.tc {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

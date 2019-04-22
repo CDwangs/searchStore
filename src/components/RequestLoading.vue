@@ -3,16 +3,20 @@
               mode="out-in">
     <div class="request-loading-component"
          v-if="requestLoading">
-      <svg-icon icon-class="loading" />
+      <svg-icon icon-class="loading">
+      </svg-icon>
     </div>
   </transition>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
+import svgIcon from '@/components/SvgIcon.vue'
 export default {
   name: 'RequestLoading',
+  components: {
+    svgIcon
+  },
   computed: {
     ...mapGetters([
       'requestLoading'
@@ -28,8 +32,8 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  //background-color: rgba(48, 65, 86, 0.2);
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.7);
+  // background-color: transparent;
   font-size: 150px;
   display: flex;
   flex-direction: row;

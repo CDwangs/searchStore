@@ -1,10 +1,18 @@
 <template>
   <div id="app">
+    <request-loding></request-loding>
     <router-view>
     </router-view>
   </div>
 </template>
-
+<script>
+import RequestLoding from '@/components/RequestLoading.vue'
+export default {
+  components: {
+    RequestLoding
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

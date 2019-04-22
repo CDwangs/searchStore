@@ -2,7 +2,12 @@ import Cookies from 'js-cookie'
 
 const app = {
   state: {
-    requestLoading: 0
+    size: Cookies.get('size') || 'medium',
+    requestLoading: 0,
+    coordinate: {
+      longitude: '',
+      latitude: ''
+    }
   },
   mutations: {
     SET_LOADING: (state, status) => {
@@ -13,21 +18,22 @@ const app = {
       }
       state.requestLoading = status ? ++state.requestLoading : --state.requestLoading
     },
-    SET_SIZE: (state, size) => {
-      state.size = size
-      Cookies.set('size', size)
+    SET_COORDINATE: (state, newCoordinate) => {
+      if (newCoordinate) {
+        state.coordinate = newCoordinate
+      }
     }
   },
   actions: {
-    setLoading ({
+    SetLoading ({
       commit
     }, status) {
       commit('SET_LOADING', status)
     },
-    setSize ({
+    SETCoordinate ({
       commit
-    }, size) {
-      commit('SET_SIZE', size)
+    }, newCoordinate) {
+      commit('SET_COORDINATE', newCoordinate)
     }
   }
 }

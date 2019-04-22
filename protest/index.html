@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="favicon.ico">
+  <title>找门店</title>
+<link href="0.js" rel="prefetch"><link href="1.js" rel="prefetch"><link href="2.js" rel="prefetch"><link href="3.js" rel="prefetch"><link href="4.js" rel="prefetch"><link href="5.js" rel="prefetch"><link href="6.js" rel="prefetch"><link href="7.js" rel="prefetch"><link href="8.js" rel="prefetch"><link href="app.js" rel="preload" as="script"></head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script>
+    // app内登陆回调
+    function JsGetUserInfoCallBack(upid) {
+
+      if (upid == undefined || upid == null || upid == "") {
+        thisWeiXin.dialogAlert("用户信息获取失败");
+        return;
+      } else {
+        setCookie(upid);
+        window.location.href = window.location.href.split('#')[0];
+      }
+    }
+
+    function setCookie(token) {
+      var exdate = new Date(); //获取时间
+      exdate.setTime(exdate.getTime() + 60 * 60 * 1000 * 15); //保存的时间
+      //字符串拼接cookie
+      document.cookie =
+        "token" + "=" + token + ";path=/;expires=" + exdate.toGMTString();
+    }
+  </script>
+<script type="text/javascript" src="app.js"></script></body>
+
+</html>

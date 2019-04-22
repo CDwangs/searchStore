@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><link rel=icon href=favicon.ico><link href=https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.min.js rel=preload as=script><link href=https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js rel=preload as=script><link href=https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js rel=preload as=script><link href=https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js rel=preload as=script><link href=https://cdn.bootcss.com/mint-ui/2.2.13/index.js rel=preload as=script><link href=https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js rel=preload as=script><link href=https://unpkg.com/vue-amap@0.5.9/dist/index.js rel=preload as=script><title></title><link href=css/chunk-423f7db0.5818bb48.css rel=prefetch><link href=css/chunk-52604627.f7b48191.css rel=prefetch><link href=css/chunk-7187f936.fdcc630e.css rel=prefetch><link href=css/chunk-78b6292f.0311a5c8.css rel=prefetch><link href=css/chunk-8ae72a08.4ce10716.css rel=prefetch><link href=css/chunk-9c3929b2.44936706.css rel=prefetch><link href=css/chunk-b44fccaa.e95a3a79.css rel=prefetch><link href=css/chunk-d1e722fa.22d578a0.css rel=prefetch><link href=css/chunk-f20a1666.4fc8efc4.css rel=prefetch><link href=js/chunk-2d0b2d1c.b3df2412.js rel=prefetch><link href=js/chunk-423f7db0.05663094.js rel=prefetch><link href=js/chunk-52604627.4a52f1da.js rel=prefetch><link href=js/chunk-7187f936.324e7c25.js rel=prefetch><link href=js/chunk-78b6292f.8e5b7a71.js rel=prefetch><link href=js/chunk-8ae72a08.4310dda0.js rel=prefetch><link href=js/chunk-9c3929b2.ee4c350f.js rel=prefetch><link href=js/chunk-b44fccaa.0d4b33c9.js rel=prefetch><link href=js/chunk-d1e722fa.af31170b.js rel=prefetch><link href=js/chunk-f20a1666.c923e3fa.js rel=prefetch><link href=css/app.a0d283c0.css rel=preload as=style><link href=css/chunk-vendors.df86e524.css rel=preload as=style><link href=js/app.3318aa84.js rel=preload as=script><link href=js/chunk-vendors.c481d001.js rel=preload as=script><link href=css/chunk-vendors.df86e524.css rel=stylesheet><link href=css/app.a0d283c0.css rel=stylesheet></head><body><div id=app></div><script src=https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.min.js></script><script src=https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js></script><script src=https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js></script><script src=https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js></script><script src=https://cdn.bootcss.com/mint-ui/2.2.13/index.js></script><script src=https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js></script><script src=https://unpkg.com/vue-amap@0.5.9/dist/index.js></script><script>// app内登陆回调
+    function JsGetUserInfoCallBack(upid) {
+
+      if (upid == undefined || upid == null || upid == "") {
+        thisWeiXin.dialogAlert("用户信息获取失败");
+        return;
+      } else {
+        setCookie(upid);
+        window.location.href = window.location.href.split('#')[0];
+      }
+    }
+
+    function setCookie(token) {
+      var exdate = new Date(); //获取时间
+      exdate.setTime(exdate.getTime() + 60 * 60 * 1000 * 15); //保存的时间
+      //字符串拼接cookie
+      document.cookie =
+        "token" + "=" + token + ";path=/;expires=" + exdate.toGMTString();
+    }</script><script src=js/chunk-vendors.c481d001.js></script><script src=js/app.3318aa84.js></script></body></html>

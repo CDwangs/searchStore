@@ -1,11 +1,8 @@
-<!--  -->
 <template>
-  <div>
-    <svg :class="svgClass"
-         aria-hidden="true">
-      <use :xlink:href="iconName" />
-    </svg>
-  </div>
+  <svg :class="svgClass"
+       aria-hidden="true">
+    <use :xlink:href="iconName" />
+  </svg>
 </template>
 
 <script>
@@ -21,38 +18,28 @@ export default {
       default: ''
     }
   },
-  data () {
-    return {
-    }
-  },
-
-  components: {},
-
   computed: {
     iconName () {
       return `#icon-${this.iconClass}`
     },
     svgClass () {
       if (this.className) {
-        return 'svg-icon' + this.className
+        return 'svg-icon ' + this.className
       } else {
         return 'svg-icon'
       }
     }
-  },
-
-  mounted: {},
-
-  methods: {}
+  }
 }
-
 </script>
-<style lang='scss' scoped>
+
+<style scoped>
 .svg-icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.5em;
+  width: 60px;
+  height: 60px;
+  /* vertical-align: -0.15em; */
   fill: currentColor;
   overflow: hidden;
+  /* background-color: #fff; */
 }
 </style>
