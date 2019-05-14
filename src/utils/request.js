@@ -3,14 +3,15 @@ import store from '@/store'
 // 创建axios 实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // api的base_url
-  timeout: 10000 // 请求超时时间
+  timeout: 25000 // 请求超时时间
 })
 // request 拦截器
 service.interceptors.request.use(
   config => {
     // loading + 1
-
-    store.dispatch('SetLoading', true)
+    if (!config.noLoading) {
+      store.dispatch('SetLoading', true)
+    }
 
     return config
   },
@@ -29,12 +30,17 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // loading - 1
-    store.dispatch('SetLoading', false)
+    if (!response.config.noLoading) {
+      store.dispatch('SetLoading', false)
+    }
     return res
   },
   error => {
     // loading - 1
-    store.dispatch('SetLoading', false)
+    console.log(error)
+    if (!error.config.noLoading) {
+      store.dispatch('SetLoading', false)
+    }
     return Promise.reject(error)
   }
 )

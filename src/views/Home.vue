@@ -184,8 +184,8 @@ export default {
                 that.changeCoordinate(newCoordinate)
               } else {
                 let newCoordinate = {
-                  longitude: 30.6574200000,
-                  latitude: 104.0658400000
+                  longitude: 104.0658400000,
+                  latitude: 30.6574200000
                 }
                 that.changeCoordinate(newCoordinate)
               }

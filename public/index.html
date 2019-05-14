@@ -29,17 +29,12 @@
         thisWeiXin.dialogAlert("用户信息获取失败");
         return;
       } else {
-        setCookie(upid);
-        window.location.href = window.location.href.split('#')[0];
+        setSession(upid);
       }
     }
 
-    function setCookie(token) {
-      var exdate = new Date(); //获取时间
-      exdate.setTime(exdate.getTime() + 60 * 60 * 1000 * 15); //保存的时间
-      //字符串拼接cookie
-      document.cookie =
-        "token" + "=" + token + ";path=/;expires=" + exdate.toGMTString();
+    function setSession(token) {
+      sessionStorage.setItem('token', token)
     }
   </script>
 </body>

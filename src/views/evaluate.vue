@@ -115,10 +115,11 @@ export default {
       })
     },
     dealImg (item) {
-      if (item.ImagePath.length > 0) {
-        let copyItem = Object.assign(item)
-        delete copyItem['show']
-        this.uploadImg.push(copyItem)
+      if (item.ImagePath) {
+        this.uploadImg.push({
+          ImagePath: item.ImagePath,
+          SuffixName: ''
+        })
       }
     }
   }

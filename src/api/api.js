@@ -13,6 +13,7 @@ function getNearbyStores (data) {
     url: 'BusinessShop/GetNearbyStores',
     method: 'post',
     data: data
+
   })
 }
 
@@ -105,6 +106,17 @@ function submitReviews (data) {
   })
 }
 
+function uploadImg (data) {
+  return request({
+    url: 'Products/uploadImg',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
 export {
   getCarousel,
   getNearbyStores,
@@ -118,5 +130,6 @@ export {
   getOrderDetail,
   submitReviews,
   newGoToPayFace,
-  CustomerBackMoney
+  CustomerBackMoney,
+  uploadImg
 }

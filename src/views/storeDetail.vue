@@ -46,7 +46,7 @@
           <p @click="goStoreMap (storeInfo.Longitude,storeInfo.Latitude)">导航</p>
           <p>
             <span>距离</span>
-            <span>{{storeInfo.Distance | storeDistance}}m</span>
+            <span>{{storeInfo.Distance | storeDistance}}</span>
           </p>
         </div>
       </div>

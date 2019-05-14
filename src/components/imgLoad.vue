@@ -6,7 +6,7 @@
            v-gallery:groupName
            :src="showPic.ImagePath">
       <input v-else
-             @change="upload($event,showPic)"
+             @change="fileUpload($event,showPic)"
              type="file"
              accept="image/*"
              capture
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { uploadImg } from '@/api/api'
+import { MessageBox } from 'mint-ui'
 export default {
   name: 'imgLoad',
   props: {
@@ -123,6 +125,23 @@ export default {
         show: false
       }
       this.$emit('update:pic', Object.assign(air))
+    },
+    fileUpload (e, item) {
+      this.loadShow = true
+      this.$emit('update:imgLoading', true)
+      let file = e.target.files[0]
+      let param = new FormData()
+      param.append('file_data', file)
+      uploadImg(param).then(response => {
+        if (response.Head.ErrorCode === 10000) {
+          this.loadShow = false
+          this.$emit('update:imgLoading', false)
+          item.show = true
+          item.ImagePath = response.Body
+        } else {
+          MessageBox.alert(response.Head.Msg, '提示')
+        }
+      })
     }
   }
 }
